@@ -1,13 +1,9 @@
 import { Request, Response, NextFunction, Router } from "express";
+import * as productControllers from "../controllers/product.controllers";
 
-const userRoutes = Router();
+const productRoutes = Router();
 
-userRoutes.get(
-  "/api/:name",
-  (req: Request, res: Response, next: NextFunction) => {
-    const { name } = req.params;
-    res.send(`hello ${name}`);
-  }
-);
+productRoutes.get("/api/getAllProducts", productControllers.getAllProducts);
+productRoutes.post("/api/createProduct", productControllers.createProduct);
 
-export default userRoutes;
+export default productRoutes;

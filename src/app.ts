@@ -1,14 +1,27 @@
 import "reflect-metadata";
-import express, { Request, Response, NextFunction } from "express";
+import express, { Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import { config } from "dotenv";
 import productRoutes from "./routes/product";
+import userRoutes from "./routes/user";
 config();
 const app = express();
-
+app.use((_, res: Response, next: NextFunction) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
 app.use(bodyParser.json());
-app.use(productRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
 mongoose
   .connect(

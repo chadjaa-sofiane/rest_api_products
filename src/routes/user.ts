@@ -4,6 +4,7 @@ import * as usercontrollers from "../controllers/user.controllers";
 const userRoutes = Router();
 
 userRoutes.get("/", usercontrollers.getAllUsers);
-userRoutes.post("/", usercontrollers.signup);
+userRoutes.post("/S", usercontrollers.signup);
+userRoutes.post("/L", usercontrollers.login);
 
 export default userRoutes;
